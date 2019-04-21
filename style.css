@@ -98,11 +98,6 @@ span{
 	cursor: pointer;
 }
 
-.modal{
-
-	border-width: 0px;
-}
-
 .start{
 	position: relative;
 	z-index: 999;
@@ -113,7 +108,7 @@ span{
 	border-width: 0px;
 }
 
-button{
+.startBT{
     width:-webkit-fill-available;
     display: inline-block;
     padding: 3px,5px;
@@ -127,8 +122,18 @@ button{
     font-weight: bold;
 
 }
-button:active{
+.startBT:active{
     box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
     border-color: rgba(0,0,0,.3);
     background: coral;
+}
+
+#myModal{
+	padding-top: 120px;
+	border-width: 0px;
+}
+
+.ruleText{
+	font-size: 20px;
+
 }

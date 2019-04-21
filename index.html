@@ -13,22 +13,29 @@
 </head>
 <body>
 	<div class="title">
-		<p class="medium">Your Grades：<input id="grade" type="text" value="0">
+		<p class="medium">Your Grades：<input id="grade" type="text" >
 		<span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#myModal" onclick="showRule()"></span>
 		</p>
 	</div>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     	<div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="border-width: 0px">
                 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                	<h4 class="modal-title" id="myModalLabel">Rules for 2048</h4>
+                	<h4 class="modal-title medium" id="myModalLabel">Rules for 2048</h4>
                 </div>
-                <div class="modal-body">
-                	<p1>1.</p1>
+                <div class="modal-body ruleText" style="border-width: 0px">
+                	<p1>
+                		1. Start the game, and you will get two random square marked number 2.<br>
+                		2. Slide on the game interface, to make all the square slide into the same direction.<br>
+                		3. If two square marked the same number collide with each other, they will fuse together and  the number on the square will become twice as much as it used to be.<br>
+                		4. Every time you slide, there will be a new square marked number 2 randomly on the game interface and your grade will be increased by 2 points.<br>
+                		5. When the 16 squares is filled up and you can not slide it any more (there is no adjacent identical squares), game is over.<br>
+                		6. If the game is to its end and your grade is over 2048, you win! If not, you lose.<br>
+                	</p1>
                 </div>
-                <div class="modal-footer">
-                	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <div class="modal-footer" style="border-width: 0px">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
                 </div>
        		</div>
     	</div>
@@ -69,6 +76,6 @@
 		<span class="glyphicon glyphicon-share-alt" onclick="retrack()"></span>
 		</p>
 	</div>
-	<div id="start" class="start"><button onclick="start()">START GAME</button></div>
+	<div id="start" class="start"><button class="startBT" onclick="start()">START GAME</button></div>
 </body>
 </html>
