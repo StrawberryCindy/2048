@@ -13,18 +13,18 @@
     letter-spacing: 3px;
     line-height: 60px;
 }
-
 /*main part of the game*/ 
 .main{
 	margin-top: 40px;
 	border-width: 3px;
 	border-radius: 15px;
-
+	margin-left:20%;
+	width:60%;
 	font-size: 50px;
 	text-align: center;
 	background-color: #FFFFF0;
-	line-height: 187px;
-}
+	line-height: 145px;
+} 
 
 /*styles of the grade input (get it by lable)*/
 input{
