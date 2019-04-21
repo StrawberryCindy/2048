@@ -10,11 +10,12 @@
 	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 	<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/start.js"></script>
+	<script type="text/javascript" src="js/interrupt.js"></script>
 </head>
 <body>
 	<div class="title">
 		<p class="medium">Your Grades：<input id="grade" type="text" >
-		<span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#myModal" onclick="showRule()"></span>
+		<span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#myModal" id="infoSign"></span>
 		</p>
 	</div>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -25,14 +26,7 @@
                 	<h4 class="modal-title medium" id="myModalLabel">Rules for 2048</h4>
                 </div>
                 <div class="modal-body ruleText" style="border-width: 0px">
-                	<p1>
-                		1. Start the game, and you will get two random square marked number 2.<br>
-                		2. Slide on the game interface, to make all the square slide into the same direction.<br>
-                		3. If two square marked the same number collide with each other, they will fuse together and  the number on the square will become twice as much as it used to be.<br>
-                		4. Every time you slide, there will be a new square marked number 2 randomly on the game interface and your grade will be increased by 2 points.<br>
-                		5. When the 16 squares is filled up and you can not slide it any more (there is no adjacent identical squares), game is over.<br>
-                		6. If the game is to its end and your grade is over 2048, you win! If not, you lose.<br>
-                	</p1>
+                	<p id="p1"></p>
                 </div>
                 <div class="modal-footer" style="border-width: 0px">
                 	<button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
@@ -71,9 +65,9 @@
 	<!--When bitten, take back to the previous step -->
 	<div class="func">
 		<p>Times:<input id=time type="text" value="0" style="border-width: 0px">
-		<span class="glyphicon glyphicon-th-list" onclick="showRecords()">&nbsp</span>
-		<span class="glyphicon glyphicon-repeat" onclick="repeat()">&nbsp</span>
-		<span class="glyphicon glyphicon-share-alt" onclick="retrack()"></span>
+		<span id="list" class="glyphicon glyphicon-th-list">&nbsp</span>
+		<span id="repeat" class="glyphicon glyphicon-repeat">&nbsp</span>
+		<span id="retract" class="glyphicon glyphicon-share-alt"></span>
 		</p>
 	</div>
 	<div id="start" class="start"><button class="startBT" onclick="start()">START GAME</button></div>
