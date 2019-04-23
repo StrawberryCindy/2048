@@ -36,9 +36,9 @@ function operating(){
 		var j2 = Math.floor(Math.random()*4);
 	}while(i1==j1&&i2==j2);
 
-	if (! i1==j1&&i2==j2) {
-		rows[i1][j1].setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
-		console.log(rows[i1][j1].class);
-		rows[i2][j2].class ="num2";
-	}
+
+	rows[i1][j1].setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
+	rows[i1][j1].innerHTML = "2";
+	rows[i2][j2].setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
+	rows[i2][j2].innerHTML = "2";
 }
