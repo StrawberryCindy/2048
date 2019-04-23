@@ -1,3 +1,24 @@
+p{
+	font-weight: bolder;
+    font-family: "youyuan";
+}
+
+/*styles of the grade input (get it by lable)*/
+input{
+	border-radius: 10px;
+	width: 150px;
+}
+
+div{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #FFEEDD;
+	border-radius: 10px;
+}
+
+span{
+	cursor: pointer;
+}
 /*styles of the grade title*/
 .title{
 	padding-left: 28%;
@@ -5,10 +26,7 @@
     border-width: 0px;
 }
 
-p{
-	font-weight: bolder;
-    font-family: "youyuan";
-}
+
 /*medium size for words*/
 .medium{
 	font-size:32px;
@@ -29,19 +47,6 @@ p{
 	line-height: 145px;
 	cursor: pointer;
 } 
-
-/*styles of the grade input (get it by lable)*/
-input{
-	border-radius: 10px;
-	width: 150px;
-}
-
-div{
-	border-width: 1px;
-	border-style: solid;
-	border-color: #FFEEDD;
-	border-radius: 10px;
-}
 .row{
 	border-width: 0px;
 }
@@ -90,13 +95,6 @@ div{
 	border-width: 0px;
 }
 
-#time{
-	width: 42%;
-}
-
-span{
-	cursor: pointer;
-}
 
 .start{
 	position: relative;
@@ -111,7 +109,6 @@ span{
 .startBT{
     width:-webkit-fill-available;
     display: inline-block;
-    padding: 3px,5px;
     background-image: linear-gradient(#f5c153, #ea920d);
     border: 1px solid rgba(0,0,0,.2);
     border-radius: 38px;
@@ -128,12 +125,16 @@ span{
     background: coral;
 }
 
+.ruleText{
+	font-size: 20px;
+
+}
+
 #myModal{
 	padding-top: 120px;
 	border-width: 0px;
 }
 
-.ruleText{
-	font-size: 20px;
-
+#time{
+	width: 42%;
 }

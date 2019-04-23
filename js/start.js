@@ -1,10 +1,11 @@
-t = "";
+clock = "";
+var highestGrade = 0;
 var c=0;
 /*start the game*/
 function start(){
 	var startBT = document.getElementById('start');
 	startBT.setAttribute("style","display:none");
-	t = setInterval(timeCount,1000);
+	clock = setInterval(timeCount,1000);
 	operating();
 }
 
@@ -12,7 +13,6 @@ function start(){
 function timeCount(){
   	var time = document.getElementById('time');
   	time.value = parseInt(time.value)+1;
-   	console.log(t);
 }	
 
 /*operating the main game*/
