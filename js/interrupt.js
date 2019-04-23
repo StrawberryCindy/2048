@@ -1,7 +1,7 @@
 window.onload = function () {
 	$("#infoSign").click(function(){
-		$("#myModal").modal("show");
 		interrupt_info();
+		$("#myModal").modal("show");
 	});
 	$("#myModal").on('show.bs.modal',function(){
 		console.log(2);
