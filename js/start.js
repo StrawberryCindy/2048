@@ -40,4 +40,24 @@ function operating(){
 	rows[i1][j1].innerHTML = "2";
 	rows[i2][j2].setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
 	rows[i2][j2].innerHTML = "2";
+
+	var main = document.getElementById("main");
+	function Position (X,Y) {
+    	this.X = X; 
+        this.Y = Y;
+    };
+    var iniPosition = new Position();
+    var endPosition = new Position();
+	main.addEventListener("mousedown", function (event) {
+		iniPosition.X = event.offsetX;
+		iniPosition.Y = event.offsetY;
+		console.log(iniPosition.X );
+	});
+	main.addEventListener("mouseup",function (event){
+		endPosition.X = event.offsetX;
+		endPosition.Y = event.offsetY;
+		console.log(endPosition.X );
+	});
+
+	
 }
