@@ -1,11 +1,11 @@
 *{
 	-webkit-user-select:none;
 	-moz-user-select:none;
+	font-family: Calibri;
 }
 
 p{
 	font-weight: bolder;
-    font-family: "youyuan";
 }
 
 /*styles of the grade input (get it by lable)*/
@@ -34,7 +34,7 @@ span{
 
 /*medium size for words*/
 .medium{
-	font-size:32px;
+	font-size:35px;
     letter-spacing: 3px;
     line-height: 60px;
 }
@@ -88,7 +88,6 @@ span{
 }
 
 .start{
-	font-family: Calibri;
 	font-size:20px;
 	position: absolute;
 	z-index: 999;
