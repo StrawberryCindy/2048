@@ -16,7 +16,6 @@ function timeCount(){
 }	
 
 /*operating the main game*/
-
 function operating(){
 	/*get the squares in a two-dimensional array*/
 	var rows = new Array();

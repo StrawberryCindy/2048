@@ -33,20 +33,7 @@ span{
     letter-spacing: 3px;
     line-height: 60px;
 }
-/*main part of the game*/ 
-.main{
-	margin-top: 40px;
-	margin-bottom: 10px;
-	border-width: 3px;
-	border-radius: 15px;
-	margin-left:20%;
-	width:60%;
-	font-size: 50px;
-	text-align: center;
-	background-color: #FFFFF0;
-	line-height: 145px;
-	cursor: pointer;
-} 
+
 .row{
 	border-width: 0px;
 }
@@ -95,19 +82,21 @@ span{
 	border-width: 0px;
 }
 
-
 .start{
-	position: relative;
+	font-family: Calibri;
+	font-size:20px;
+	position: absolute;
 	z-index: 999;
-	margin-top:-400px;
-	margin-left: 40%;
+	margin-top:260px;
+	margin-left: 18%; 
 	width: 20%;
 	line-height: 70px;
 	border-width: 0px;
 }
 
 .startBT{
-    width:-webkit-fill-available;
+    width: -webkit-fill-available; /*chrome*/
+    width: -moz-available;         /*Firefox*/
     display: inline-block;
     background-image: linear-gradient(#f5c153, #ea920d);
     border: 1px solid rgba(0,0,0,.2);
@@ -129,7 +118,20 @@ span{
 	font-size: 20px;
 
 }
-
+/*main part of the game*/ 
+#main{
+	margin-top: 40px;
+	margin-bottom: 10px;
+	border-width: 3px;
+	border-radius: 15px;
+	margin-left:20%;
+	width:60%;
+	font-size: 50px;
+	text-align: center;
+	background-color: #FFFFF0;
+	line-height: 145px;
+	cursor: pointer;
+} 
 #myModal{
 	padding-top: 120px;
 	border-width: 0px;

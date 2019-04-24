@@ -1,5 +1,6 @@
 window.onload = function () {
-	document.getElementById("hhh").addEventListener("mousedown", function (event) {console.log(event)})
+	document.getElementById("main").addEventListener("mousedown", function (event) {console.log(event)})
+	document.getElementById("main").addEventListener("mouseup", function (event) {console.log(event)})
 	
 	$("#infoSign").click(function () {
 		interrupt_info();
