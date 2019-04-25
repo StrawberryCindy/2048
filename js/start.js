@@ -16,15 +16,7 @@ squares[2] = document.getElementsByName("square2");
 squares[3] = document.getElementsByName("square3");
 
 /*set the states in an array*/
-var states = new Array();
-function State (css,text) {
-	this.css = css;
-	this.text = text;
-	
-}
-var state0 = new State()
-
-
+var board = new Array();
 
 /*start the game*/
 function start(){
@@ -42,19 +34,7 @@ function timeCount(){
 
 /*operating the main game*/
 function operating(){
-
-	do{
-		var i1 = Math.floor(Math.random()*4);
-		var j1 = Math.floor(Math.random()*4);
-		var i2 = Math.floor(Math.random()*4);
-		var j2 = Math.floor(Math.random()*4);
-	}while(i1==j1&&i2==j2);
-
-
-	squares[i1][j1].setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
-	squares[i1][j1].innerHTML = "2";
-	squares[i2][j2].setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
-	squares[i2][j2].innerHTML = "2";
+	ini();
 
 	var main = document.getElementById("main");
 
@@ -68,24 +48,26 @@ function operating(){
 	main.addEventListener("mousedown", function (event) {
 		iniPosition.X = event.offsetX;
 		iniPosition.Y = event.offsetY;
-		console.log(iniPosition.X );
 	});
 	main.addEventListener("mouseup",function (event){
 		endPosition.X = event.offsetX;
 		endPosition.Y = event.offsetY;
-		console.log(endPosition.X );
 	});
 
 	var moveX = endPosition.X - iniPosition.X;
 	var moveY = endPosition.Y - iniPosition.Y;
-	if (Math.abs(moveX)>Math.abs(moveY)) {
-		if (moveX>0) {
+	if (Math.abs(moveX) > Math.abs(moveY)) {
+		currentGrade += 2;
+		document.getElementById("grade").value = currentGrade;
+		if (moveX > 0) {
 			slideRight();
 		} else {
 			slideLeft();
 		}
 	} else {
-		if (moveY>0) {
+		currentGrade += 2;
+		document.getElementById("grade").value = currentGrade;
+		if (moveY > 0) {
 			slideUp();
 		} else {
 			slideDown();
@@ -93,18 +75,137 @@ function operating(){
 	}
 }
 
-function slideRight () {
+function ini () {
+	for (var i = 0; i < 4; i++) {
+        board[i] = new Array();
+        for (var j = 0 ; j <4 ; j++) {
+        	board[i][j] = 0;
+         }
+    }
+    currentGrade = 0;
+    document.getElementById('time').value = 0;
+    creatNewNum();
+    creatNewNum();
+}
 
+function creatNewNum () {
+	do{
+		var randI = Math.floor(Math.random()*4);
+		var randJ = Math.floor(Math.random()*4);
+	} while (! board[randI][randJ] == 0)
+	board[randI][randJ] = 1;
+}
+
+function slideRight () {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 3; j++) {
+            if (board[i][j] != 0)
+                if (board[i][j + 1] == 0) {
+                	board[i][j + 1] = board[i][j];
+                	board[i][j] = 0;
+                }else if (board[i][j + 1] == board[i][j]) {
+                	board[i][j + 1] = board[i][j] + 1;
+                	board[i][j] = 0;
+                }
+        }
+	}
 }
 
 function slideLeft () {
-
+	for (var i = 0; i < 4; i++) {
+        for (var j = 3; j > 0; j--) {
+            if (board[i][j] != 0)
+                if (board[i][j - 1] == 0) {
+                	board[i][j - 1] = board[i][j];
+                	board[i][j] = 0;
+                }else if (board[i][j - 1] == board[i][j]) {
+                	board[i][j - 1] = board[i][j] + 1;
+                	board[i][j] = 0;
+                }
+        }
+	}
 }
 
 function slideUp () {
-
+	for (var i = 3; i > 0; i--) {
+        for (var j = 0; j < 4; j++) {
+            if (board[i][j] != 0)
+                if (board[i - 1][j] == 0) {
+                	board[i - 1][j] = board[i][j];
+                	board[i][j] = 0;
+                }else if (board[i - 1][j] == board[i][j]) {
+                	board[i - 1][j] = board[i][j] + 1;
+                	board[i][j] = 0;
+                }
+        }
+	}
 }
 
 function slideDown () {
+	for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (board[i][j] != 0)
+                if (board[i + 1][j] == 0) {
+                	board[i + 1][j] = board[i][j];
+                	board[i][j] = 0;
+                }else if (board[i + 1][j] == board[i][j]) {
+                	board[i + 1][j] = board[i][j] + 1;
+                	board[i][j] = 0;
+                }
+        }
+	}
+}
 
+function ifGameOver () {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+        	if(noSpace(board) && noSlide(board))
+        		gameOver();
+        }
+	}
+}
+
+function noSpace (board) {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+        	if (board[i][j] == 0) return false;
+        }
+	}
+	return true;
+}
+
+function noSlide (board) {
+	for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 4; j++) {
+        	if (board[i][j] != 0)
+        		if(board[i][j + 1] == 0 || board[i - 1][j] == board[i][j])
+        			return false;
+        }
+	}
+	for (var i = 0; i < 4; i++) {
+        for (var j = 3; j > 0; j--) {
+            if (board[i][j] != 0)
+            	if (board[i][j - 1] == 0 || board[i][j - 1] == board[i][j])
+            		return false;
+        }
+    }
+    for (var i = 3; i > 0; i--) {
+        for (var j = 0; j < 4; j++) {
+            if (board[i][j] != 0)
+                if (board[i - 1][j] == 0 || board[i - 1][j] == board[i][j])
+                	return false;
+        }
+    }
+    for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (board[i][j] != 0)
+                if (board[i + 1][j] == 0 || board[i + 1][j] == board[i][j])
+                	return false;
+        }        
+    }
+    return true;
+}
+
+function gameOver () {
+	
 }
