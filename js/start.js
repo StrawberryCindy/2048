@@ -3,6 +3,13 @@ clock = "";
 /*set the Cache*/
 var highestGrade = 0;
 var currentGrade = 0;
+
+function Position (X,Y) {
+    this.X = X; 
+    this.Y = Y;
+ };
+var iniPosition = new Position();
+var endPosition = new Position();
 	
 /*get the squares in a two-dimensional array*/
 var squares = new Array();
@@ -38,41 +45,21 @@ function operating(){
 
 	var main = document.getElementById("main");
 
-	function Position (X,Y) {
-    	this.X = X; 
-        this.Y = Y;
-    };
-    var iniPosition = new Position();
-    var endPosition = new Position();
-
 	main.addEventListener("mousedown", function (event) {
-		iniPosition.X = event.offsetX;
-		iniPosition.Y = event.offsetY;
+		console.log(event.clientX, event.clientY);
+		iniPosition.X = event.clientX;
+		iniPosition.Y = event.clientY;
 	});
 	main.addEventListener("mouseup",function (event){
-		endPosition.X = event.offsetX;
-		endPosition.Y = event.offsetY;
+		console.log(event.clientX, event.clientY);
+		endPosition.X = event.clientX;
+		endPosition.Y = event.clientY;
+		if (canSlide(board)) {
+			isSliding();
+			creatNewNum();
+		}
+		ifGameOver();
 	});
-
-	var moveX = endPosition.X - iniPosition.X;
-	var moveY = endPosition.Y - iniPosition.Y;
-	if (Math.abs(moveX) > Math.abs(moveY)) {
-		currentGrade += 2;
-		document.getElementById("grade").value = currentGrade;
-		if (moveX > 0) {
-			slideRight();
-		} else {
-			slideLeft();
-		}
-	} else {
-		currentGrade += 2;
-		document.getElementById("grade").value = currentGrade;
-		if (moveY > 0) {
-			slideUp();
-		} else {
-			slideDown();
-		}
-	}
 }
 
 function ini () {
@@ -94,9 +81,32 @@ function creatNewNum () {
 		var randJ = Math.floor(Math.random()*4);
 	} while (! board[randI][randJ] == 0)
 	board[randI][randJ] = 1;
+	currentGrade += 2;
+	document.getElementById("grade").value = currentGrade;
+}
+
+function isSliding () {
+	var moveX = endPosition.X - iniPosition.X;
+	var moveY = endPosition.Y - iniPosition.Y;
+	//console.log(iniPosition.X,iniPosition.Y);
+	//console.log(endPosition.X,endPosition.Y);
+	if (Math.abs(moveX) > Math.abs(moveY)) {
+		if (moveX > 0) {
+			slideRight();
+		} else {
+			slideLeft();
+		}
+	} else if (Math.abs(moveX) < Math.abs(moveY)){
+		if (moveY > 0) {
+			slideDown();
+		} else {
+			slideUp();
+		}
+	}
 }
 
 function slideRight () {
+	console.log("RIGHT");
 	for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 3; j++) {
             if (board[i][j] != 0)
@@ -112,6 +122,7 @@ function slideRight () {
 }
 
 function slideLeft () {
+	console.log("LEFT");
 	for (var i = 0; i < 4; i++) {
         for (var j = 3; j > 0; j--) {
             if (board[i][j] != 0)
@@ -127,6 +138,7 @@ function slideLeft () {
 }
 
 function slideUp () {
+	console.log("UP");
 	for (var i = 3; i > 0; i--) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0)
@@ -142,6 +154,7 @@ function slideUp () {
 }
 
 function slideDown () {
+	console.log("DOWN");
 	for (var i = 0; i < 3; i++) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0)
@@ -159,7 +172,7 @@ function slideDown () {
 function ifGameOver () {
 	for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
-        	if(noSpace(board) && noSlide(board))
+        	if(noSpace(board) && (!canSlide(board)))
         		gameOver();
         }
 	}
@@ -174,36 +187,36 @@ function noSpace (board) {
 	return true;
 }
 
-function noSlide (board) {
-	for (var i = 0; i < 3; i++) {
-        for (var j = 0; j < 4; j++) {
-        	if (board[i][j] != 0)
-        		if(board[i][j + 1] == 0 || board[i - 1][j] == board[i][j])
-        			return false;
+function canSlide (board) {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 3; j++) {
+            if (board[i][j] != 0)
+        		if(board[i][j + 1] == 0 || board[i][j + 1] == board[i][j])
+        			return true;
         }
 	}
 	for (var i = 0; i < 4; i++) {
         for (var j = 3; j > 0; j--) {
             if (board[i][j] != 0)
             	if (board[i][j - 1] == 0 || board[i][j - 1] == board[i][j])
-            		return false;
+            		return true;
         }
     }
     for (var i = 3; i > 0; i--) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0)
                 if (board[i - 1][j] == 0 || board[i - 1][j] == board[i][j])
-                	return false;
+                	return true;
         }
     }
     for (var i = 0; i < 3; i++) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0)
                 if (board[i + 1][j] == 0 || board[i + 1][j] == board[i][j])
-                	return false;
+                	return true;
         }        
     }
-    return true;
+    return false;
 }
 
 function gameOver () {
