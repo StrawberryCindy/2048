@@ -88,33 +88,44 @@ function creatNewNum () {
 function isSliding () {
 	var moveX = endPosition.X - iniPosition.X;
 	var moveY = endPosition.Y - iniPosition.Y;
-	if (Math.abs(moveX) > Math.abs(moveY)) {
-		if (moveX > 0) {
-			console.log("RIGHT");
-			slideRight();
-			slideRight();
-			slideRight();
-		} else {
-			console.log("LEFT");
-			slideLeft();
-			slideLeft();
-			slideLeft();
-		}	
+	if (Math.abs(moveX) != Math.abs(moveY)) {
+		play_slideAudio();
 		creatNewNum();
-	} else if (Math.abs(moveX) < Math.abs(moveY)){
-		if (moveY > 0) {
-			console.log("DOWN");
-			slideDown();
-			slideDown();
-			slideDown();
-		} else {
-			console.log("UP");
-			slideUp();
-			slideUp();
-			slideUp();
+		if (Math.abs(moveX) > Math.abs(moveY)) {
+			if (moveX > 0) {
+				console.log("RIGHT");
+				slideRight();
+				slideRight();
+				slideRight();
+			} else {
+				console.log("LEFT");
+				slideLeft();
+				slideLeft();
+				slideLeft();
+			}	
+		} else if (Math.abs(moveX) < Math.abs(moveY)){
+			if (moveY > 0) {
+				console.log("DOWN");
+				slideDown();
+				slideDown();
+				slideDown();
+			} else {
+				console.log("UP");
+				slideUp();
+				slideUp();
+				slideUp();
+			}
 		}
-		creatNewNum();
 	}
+}
+
+function play_slideAudio () {
+	var slideAudio = document.getElementById('slideAudio');
+	slideAudio.play();
+}
+function play_mergeAudio () {
+	var mergeAudio = document.getElementById("mergeAudio");
+    mergeAudio.play();
 }
 
 function slideRight () {
@@ -127,6 +138,7 @@ function slideRight () {
                 }else if (board[i][j + 1] == board[i][j]) {
                 	board[i][j + 1] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                 }
             }
         }
@@ -143,6 +155,7 @@ function slideLeft () {
                 }else if (board[i][j - 1] == board[i][j]) {
                 	board[i][j - 1] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                 }
             }    
         }
@@ -159,6 +172,7 @@ function slideUp () {
                 }else if (board[i - 1][j] == board[i][j]) {
                 	board[i - 1][j] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                 }
             }
         }
@@ -175,6 +189,7 @@ function slideDown () {
                 }else if (board[i + 1][j] == board[i][j]) {
                 	board[i + 1][j] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                 }
             }    
         }
