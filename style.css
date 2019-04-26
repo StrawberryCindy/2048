@@ -24,13 +24,13 @@ div{
 span{
 	cursor: pointer;
 }
+
 /*styles of the grade title*/
 .title{
 	padding-left: 28%;
     padding-top: 50px;
     border-width: 0px;
 }
-
 
 /*medium size for words*/
 .medium{

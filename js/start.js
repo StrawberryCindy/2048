@@ -73,6 +73,11 @@ function ini () {
     document.getElementById('time').value = 0;
     creatNewNum();
     creatNewNum();
+    for (var i = 0; i < 4; i++) {
+		for (var j = 0; j< 4; j++) {
+				showSquares(squares[i][j],board[i][j]);
+		}
+	}
 }
 
 function creatNewNum () {
@@ -115,6 +120,12 @@ function isSliding () {
 				slideUp();
 				slideUp();
 			}
+		}
+	}
+
+	for (var i = 0; i < 4; i++) {
+		for (var j = 0; j< 4; j++) {
+			showSquares(squares[i][j],board[i][j]);
 		}
 	}
 }
@@ -252,4 +263,57 @@ function canSlide (board) {
 
 function gameOver () {
 	
+}
+
+function showSquares (square,state) {
+	switch (state) {
+		case 0:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3");
+			square.innerHTML = '&nbsp';
+			break;
+		case 1:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
+			square.innerHTML = '2';
+			break;
+		case 2:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num4");
+			square.innerHTML = '4';
+			break;
+		case 3:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num8");
+			square.innerHTML = '8';
+			break;
+		case 4:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num16");
+			square.innerHTML = '16';
+			break;
+		case 5:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num32");
+			square.innerHTML = '32';
+			break;
+		case 6:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num64");
+			square.innerHTML = '64';
+			break;
+		case 7:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num128");
+			square.innerHTML = '128';
+			break;
+		case 8:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num256");
+			square.innerHTML = '256';
+			break;
+		case 9:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num512");
+			square.innerHTML = '512';
+			break;
+		case 10:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num1024");
+			square.innerHTML = '1024';
+			break;
+		case 11:
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2048");
+			square.innerHTML = '2048';
+			break;
+	}
 }
