@@ -95,16 +95,19 @@ function isSliding () {
 	var moveY = endPosition.Y - iniPosition.Y;
 	if (Math.abs(moveX) != Math.abs(moveY)) {
 		play_slideAudio();
-		creatNewNum();
 		if (Math.abs(moveX) > Math.abs(moveY)) {
 			if (moveX > 0) {
 				console.log("RIGHT");
 				slideRight();
 				slideRight();
+				mergeRight();
+				slideRight();
 				slideRight();
 			} else {
 				console.log("LEFT");
 				slideLeft();
+				slideLeft();
+				mergeLeft();
 				slideLeft();
 				slideLeft();
 			}	
@@ -113,16 +116,20 @@ function isSliding () {
 				console.log("DOWN");
 				slideDown();
 				slideDown();
+				mergeDown();				
+				slideDown();
 				slideDown();
 			} else {
 				console.log("UP");
 				slideUp();
 				slideUp();
+				mergeUp();
+				slideUp();
 				slideUp();
 			}
 		}
+		creatNewNum();
 	}
-
 	for (var i = 0; i < 4; i++) {
 		for (var j = 0; j< 4; j++) {
 			showSquares(squares[i][j],board[i][j]);
@@ -139,21 +146,68 @@ function play_mergeAudio () {
     mergeAudio.play();
 }
 
-function slideRight () {
+function mergeRight () {
 	for (var i = 0; i < 4; i++) {
         for (var j = 2; j >= 0; j--) {
             if (board[i][j] != 0) {
-                if (board[i][j + 1] == 0) {
-                	board[i][j + 1] = board[i][j];
+            	if(board[i][j + 1] == board[i][j]){
+            		board[i][j + 1] = board[i][j] + 1;
+            		board[i][j] = 0;
+            	}
+            }
+        }
+    }
+}
+
+function mergeLeft () {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 1; j < 4; j++) {
+            if (board[i][j] != 0) {
+                if (board[i][j - 1] == board[i][j]) {
+                	board[i][j - 1] = board[i][j] + 1;
                 	board[i][j] = 0;
-                }else if (board[i][j + 1] == board[i][j]) {
-                	board[i][j + 1] = board[i][j] + 1;
+               	} 
+            }
+        }
+    }
+}
+
+function mergeUp () {
+	for (var i = 1; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (board[i][j] != 0) {
+                if (board[i - 1][j] == board[i][j]) {
+                	board[i - 1][j] = board[i][j] + 1;
                 	board[i][j] = 0;
-                	play_mergeAudio();
                 }
             }
         }
 	}
+}
+
+function mergeDown () {
+	for (var i = 2; i >= 0; i--) {
+        for (var j = 0; j < 4; j++) {
+            if (board[i][j] != 0) {
+                if (board[i + 1][j] == board[i][j]) {
+                	board[i + 1][j] = board[i][j] + 1;
+                	board[i][j] = 0;
+                }
+            }    
+        }
+	}
+}
+function slideRight () {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 2; j >= 0; j--) {
+            if (board[i][j] != 0) {
+            	if(board[i][j + 1] == 0){
+            		board[i][j + 1] = board[i][j];
+            		board[i][j] = 0;
+            	}
+            }
+        }
+    }
 }
 
 function slideLeft () {
@@ -161,16 +215,14 @@ function slideLeft () {
         for (var j = 1; j < 4; j++) {
             if (board[i][j] != 0) {
                 if (board[i][j - 1] == 0) {
-                	board[i][j - 1] = board[i][j];
-                	board[i][j] = 0;
-                }else if (board[i][j - 1] == board[i][j]) {
-                	board[i][j - 1] = board[i][j] + 1;
-                	board[i][j] = 0;
-                	play_mergeAudio();
-                }
-            }    
+                	if (board[i][j - 1] == 0) {
+                		board[i][j - 1] = board[i][j];
+                		board[i][j] = 0;
+               		} 
+               	}
+            }
         }
-	}
+    }
 }
 
 function slideUp () {
@@ -180,10 +232,6 @@ function slideUp () {
                 if (board[i - 1][j] == 0) {
                 	board[i - 1][j] = board[i][j];
                 	board[i][j] = 0;
-                }else if (board[i - 1][j] == board[i][j]) {
-                	board[i - 1][j] = board[i][j] + 1;
-                	board[i][j] = 0;
-                	play_mergeAudio();
                 }
             }
         }
@@ -197,10 +245,6 @@ function slideDown () {
                 if (board[i + 1][j] == 0) {
                 	board[i + 1][j] = board[i][j];
                 	board[i][j] = 0;
-                }else if (board[i + 1][j] == board[i][j]) {
-                	board[i + 1][j] = board[i][j] + 1;
-                	board[i][j] = 0;
-                	play_mergeAudio();
                 }
             }    
         }
@@ -214,6 +258,7 @@ function ifGameOver () {
         		gameOver();
         }
 	}
+
 }
 
 function noSpace (board) {
