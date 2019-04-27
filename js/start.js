@@ -152,7 +152,8 @@ function mergeRight () {
             if (board[i][j] != 0) {
             	if(board[i][j + 1] == board[i][j]){
             		board[i][j + 1] = board[i][j] + 1;
-            		board[i][j] = 0;
+            		board[i][j] = 0;、
+            		play_mergeAudio();
             	}
             }
         }
@@ -166,6 +167,7 @@ function mergeLeft () {
                 if (board[i][j - 1] == board[i][j]) {
                 	board[i][j - 1] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                	} 
             }
         }
@@ -179,6 +181,7 @@ function mergeUp () {
                 if (board[i - 1][j] == board[i][j]) {
                 	board[i - 1][j] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                 }
             }
         }
@@ -192,6 +195,7 @@ function mergeDown () {
                 if (board[i + 1][j] == board[i][j]) {
                 	board[i + 1][j] = board[i][j] + 1;
                 	board[i][j] = 0;
+                	play_mergeAudio();
                 }
             }    
         }
@@ -258,7 +262,7 @@ function ifGameOver () {
         		gameOver();
         }
 	}
-
+	if (currentGrade > 2048) gameWin();
 }
 
 function noSpace (board) {
@@ -307,6 +311,24 @@ function canSlide (board) {
 }
 
 function gameOver () {
+	swal ({
+		title: "GAME OVER!",
+		text: "Your grade is" + currentGrade
+	});
+}
+
+function gameWin () {
+	swal ({
+		title: "Congratulations！",
+		text: "You win the game.",
+		icon: "success",
+		button: "Happy~"
+	});
+}
+
+function saveHighestGrade () {
+	if (currentGrade > highestGrade) highestGrade = currentGrade;
+
 	
 }
 

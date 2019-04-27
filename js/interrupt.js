@@ -27,8 +27,11 @@ window.onload = function () {
 		clearInterval(clock);
 		document.getElementById('p1').innerHTML = 'Your highest grade:' + highestGrade;
 	}
-	function interrupy_retract() {
+	function interrupt_retract() {
 		clearInterval(clock);
-		document.getElementById('p1').innerHTML = 'Waiting for development...';
+		swal ({
+			title: "Want to retract?",
+			text: "No way!!!!!"
+		})
 	}
 }
