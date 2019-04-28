@@ -1,33 +1,6 @@
-/*set the ID of the clock*/
-var clock = "";
-var currentTime = 0;
-
-var highestGrade = 0;
-var currentGrade = 0;
-
-function Position (X,Y) {
-    this.X = X; 
-    this.Y = Y;
- };
-var iniPosition = new Position();
-var endPosition = new Position();
-	
-/*get the squares in a two-dimensional array*/
-var squares = new Array();
-squares[0] = new Array();
-squares[1] = new Array();
-squares[2] = new Array();
-squares[3] = new Array();
-squares[0] = document.getElementsByName("square0");
-squares[1] = document.getElementsByName("square1");
-squares[2] = document.getElementsByName("square2");
-squares[3] = document.getElementsByName("square3");
-
-/*set the states in an array*/
-var board = new Array();
-
 /*start the game*/
 function start(){
+	ifStart = 1;    // Most of the functions must be operated when this is done.
 	var startBT = document.getElementById('start');
 	startBT.setAttribute("style","display:none");
 	clock = setInterval(timeCount,1000);
@@ -46,17 +19,17 @@ function operating(){
 	ini();
 
 	var main = document.getElementById("main");
-
 	main.addEventListener("mousedown", function (event) {
 		console.log(event.clientX, event.clientY);
 		iniPosition.X = event.clientX;
 		iniPosition.Y = event.clientY;
+		recordHistory(board);
 	});
 	main.addEventListener("mouseup",function (event){
 		console.log(event.clientX, event.clientY);
 		endPosition.X = event.clientX;
 		endPosition.Y = event.clientY;
-		if (canSlide(board) || (!noSpace(board))) {
+		if (canSlideRight(board) || canSlideLeft(board) || canSlideUp(board) || canSlideDown(board)) {
 			console.log(board);
 			isSliding();
 		}
@@ -65,21 +38,23 @@ function operating(){
 }
 
 function ini () {
-	for (var i = 0; i < 4; i++) {
-        board[i] = new Array();
-        for (var j = 0 ; j <4 ; j++) {
-        	board[i][j] = 0;
-         }
-    }
-    currentGrade = 0;
-    document.getElementById('time').value = 0;
-    creatNewNum();
-    creatNewNum();
-    for (var i = 0; i < 4; i++) {
-		for (var j = 0; j< 4; j++) {
+	if (ifStart) {
+		for (var i = 0; i < 4; i++) {
+    	    board[i] = new Array();
+    	    for (var j = 0 ; j <4 ; j++) {
+    	    	board[i][j] = 0;
+    	     }
+    	}
+    	currentGrade = 0;
+    	document.getElementById('time').value = 0;
+    	creatNewNum();
+    	creatNewNum();
+    	for (var i = 0; i < 4; i++) {
+			for (var j = 0; j< 4; j++) {
 				showSquares(squares[i][j],board[i][j]);
+			}
 		}
-	}
+    }
 }
 
 function creatNewNum () {
@@ -104,14 +79,14 @@ function isSliding () {
 				slideRight();
 				mergeRight();
 				slideRight();
-				slideRight();
+				if (canSlideRight(boardCopy)) creatNewNum();
 			} else {
 				console.log("LEFT");
 				slideLeft();
 				slideLeft();
 				mergeLeft();
 				slideLeft();
-				slideLeft();
+				if (canSlideLeft(boardCopy)) creatNewNum();
 			}	
 		} else if (Math.abs(moveX) < Math.abs(moveY)){
 			if (moveY > 0) {
@@ -120,17 +95,17 @@ function isSliding () {
 				slideDown();
 				mergeDown();				
 				slideDown();
-				slideDown();
+				if (canSlideDown(boardCopy)) creatNewNum();
 			} else {
 				console.log("UP");
 				slideUp();
 				slideUp();
 				mergeUp();
 				slideUp();
-				slideUp();
+				if (canSlideUp(boardCopy)) creatNewNum();
 			}
 		}
-		creatNewNum();
+
 	}
 	for (var i = 0; i < 4; i++) {
 		for (var j = 0; j< 4; j++) {
@@ -275,7 +250,7 @@ function noSpace (board) {
 	return true;
 }
 
-function canSlide (board) {
+function canSlideRight (board) {
 	for (var i = 0; i < 4; i++) {
         for (var j = 2; j >= 0; j--) {
             if (board[i][j] != 0) {
@@ -283,7 +258,11 @@ function canSlide (board) {
         			return true;
         	}
         }
-	}
+	}	
+	return false;
+}
+
+function canSlideLeft (board) {
 	for (var i = 0; i < 4; i++) {
         for (var j = 1; j < 4; j++) {
             if (board[i][j] != 0) {
@@ -292,6 +271,10 @@ function canSlide (board) {
         	}
         }
 	}
+	return false;
+}
+
+function canSlideUp (board) {
     for (var i = 1; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0) {
@@ -300,6 +283,10 @@ function canSlide (board) {
         	}
         }
 	}
+	return false;
+}
+
+function canSlideDown (board) {
     for (var i = 2; i >= 0; i--) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0) {
@@ -328,9 +315,10 @@ function gameWin () {
 }
 
 function saveHighestGrade () {
-	if (currentGrade > highestGrade) highestGrade = currentGrade;
-
-	
+	if (currentGrade > localStorage.getItem("highestGrade")) {
+		localStorage.getItem("highestGrade") = currentGrade;
+	}
+		localStorage.setItem("highestGrade",highestGrade);
 }
 
 function showSquares (square,state) {
@@ -384,4 +372,22 @@ function showSquares (square,state) {
 			square.innerHTML = '2048';
 			break;
 	}
+}
+
+function recordHistory (board) {
+	for (var i = 0; i < 4; i++) {
+        boardCopy[i] = new Array();
+        for (var j = 0 ; j <4 ; j++) {
+        	boardCopy[i][j] = board[i][j];
+        }
+    }
+}
+
+function copy_equal () {
+	for (var i = 0; i < 4; i++) {
+        for (var j = 0 ; j <4 ; j++) {
+        	if (boardCopy[i][j] != board[i][j]) return false;
+        }
+    }
+    return true;
 }
