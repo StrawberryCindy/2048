@@ -54,7 +54,7 @@ function operating(){
 		console.log(event.clientX, event.clientY);
 		endPosition.X = event.clientX;
 		endPosition.Y = event.clientY;
-		if (canSlide(board)) {
+		if (canSlide(board) || (!noSpace(board))) {
 			console.log(board);
 			isSliding();
 		}
@@ -152,7 +152,7 @@ function mergeRight () {
             if (board[i][j] != 0) {
             	if(board[i][j + 1] == board[i][j]){
             		board[i][j + 1] = board[i][j] + 1;
-            		board[i][j] = 0;、
+            		board[i][j] = 0;
             		play_mergeAudio();
             	}
             }
@@ -256,13 +256,12 @@ function slideDown () {
 }
 
 function ifGameOver () {
-	for (var i = 0; i < 4; i++) {
-        for (var j = 0; j < 4; j++) {
-        	if(noSpace(board) && (!canSlide(board)))
-        		gameOver();
-        }
-	}
-	if (currentGrade > 2048) gameWin();
+	if (currentGrade >= 2048) {
+		gameWin();
+	} else if (noSpace(board) && (!canSlide(board))) {
+    	gameOver(); 
+    }   
+	
 }
 
 function noSpace (board) {
@@ -294,7 +293,7 @@ function canSlide (board) {
     for (var i = 1; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0) {
-                if (board[i][j - 1] == 0 || board[i][j - 1] == board[i][j])
+                if (board[i - 1][j] == 0 || board[i - 1][j] == board[i][j])
         			return true;
         	}
         }
@@ -302,7 +301,7 @@ function canSlide (board) {
     for (var i = 2; i >= 0; i--) {
         for (var j = 0; j < 4; j++) {
             if (board[i][j] != 0) {
-                if (board[i][j + 1] == 0 || board[i][j + 1] == board[i][j])
+                if (board[i + 1][j] == 0 || board[i + 1][j] == board[i][j])
         			return true;
         	}
         }
