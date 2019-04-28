@@ -11,7 +11,8 @@ window.onload = function () {
 		interrupt_retract();
 	})
 	$("#myModal").on('hide.bs.modal',function () {
-		clock = setInterval("timeCount()",1000);
+		if (currentTime != 0)
+			clock = setInterval("timeCount()",1000);
 	});
 	function interrupt_info(){
 		clearInterval(clock);

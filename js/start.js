@@ -1,6 +1,7 @@
 /*set the ID of the clock*/
-clock = "";
-/*set the Cache*/
+var clock = "";
+var currentTime = 0;
+
 var highestGrade = 0;
 var currentGrade = 0;
 
@@ -33,10 +34,11 @@ function start(){
 	operating();
 }
 
-/*counting the time(need modificate)*/
+/*counting the time*/
 function timeCount(){
   	var time = document.getElementById('time');
   	time.value = parseInt(time.value)+1;
+  	currentTime = time.value;
 }	
 
 /*operating the main game*/
@@ -312,7 +314,7 @@ function canSlide (board) {
 function gameOver () {
 	swal ({
 		title: "GAME OVER!",
-		text: "Your grade is" + currentGrade
+		text: "Record: " + currentGrade + '<br>Time: ' + currentTime
 	});
 }
 
