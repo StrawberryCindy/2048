@@ -5,11 +5,9 @@ window.onload = function () {
 	/*set the ID of the clock*/
 	clock = "";
 
-	if (!localStorage.getItem("highestGrade")){
-		localStorage.setItem("highestGrade",0);
-	}
-	currentGrade = 0;
+	localStorage.setItem("highestGrade",0);
 
+	currentGrade = 0;
 	
 	iniPosition = new Position();
 	endPosition = new Position();
@@ -64,7 +62,9 @@ window.onload = function () {
 
 	function interrupt_list () {
 		clearInterval(clock);
-		document.getElementById('p1').innerHTML = 'Your highest grade:' + localStorage.getItem("highestGrade");
+		document.getElementById('p1').innerHTML = 'The highest grade: ' + localStorage.getItem("highestGrade")
+												 + "\nRecord: " + currentGrade 
+												 + "\nTime: " + document.getElementById("time");
 	}
 
 	function retract () {

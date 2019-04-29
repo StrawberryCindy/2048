@@ -235,7 +235,8 @@ function slideDown () {
 function ifGameOver () {
 	if (currentGrade >= 2048) {
 		gameWin();
-	} else if (noSpace(board) && (!canSlide(board))) {
+	} else if (noSpace(board) && (!canSlideRight(board)) && (!canSlideLeft(board)) && (!canSlideUp(board)) && (!canSlideDown
+		(board))) {
     	gameOver(); 
     }   
 	
@@ -299,13 +300,17 @@ function canSlideDown (board) {
 }
 
 function gameOver () {
+	saveHighestGrade();
+	clearInterval(clock);
 	swal ({
 		title: "GAME OVER!",
-		text: "Record: " + currentGrade + '<br>Time: ' + currentTime
+		text: "Record: " + currentGrade + "\nTime: " + currentTime
 	});
 }
 
 function gameWin () {
+	saveHighestGrade();	
+	clearInterval(clock);
 	swal ({
 		title: "Congratulations！",
 		text: "You win the game.",
@@ -316,9 +321,8 @@ function gameWin () {
 
 function saveHighestGrade () {
 	if (currentGrade > localStorage.getItem("highestGrade")) {
-		localStorage.getItem("highestGrade") = currentGrade;
+		localStorage.setItem("highestGrade",currentGrade);
 	}
-		localStorage.setItem("highestGrade",highestGrade);
 }
 
 function showSquares (square,state) {
