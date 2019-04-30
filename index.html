@@ -20,7 +20,7 @@
 	<audio src="click/merge.mp3" id="mergeAudio"></audio>
 	<audio src="click/slide.mp3" id="slideAudio"></audio>
 	<div class="title">
-		<p class="medium">Your Grades：<input id="grade" type="text" >
+		<p class="medium">Your Grades：<input id="grade" type="text" readonly>
 		<span class="glyphicon glyphicon-info-sign" id="infoSign"></span>
 		</p>
 	</div>
@@ -71,7 +71,7 @@
 	</div>	
 	<!--When bitten, take back to the previous step -->
 	<div class="func">
-		<p>Times:<input id=time type="text" value="0" style="border-width: 0px">
+		<p>Times:<input id="time" type="text" value="0" style="border-width: 0px" readonly>
 		<span id="list" class="glyphicon glyphicon-th-list">&nbsp</span>
 		<span id="repeat" class="glyphicon glyphicon-repeat" onclick="ini()">&nbsp</span>
 		<span id="retract" class="glyphicon glyphicon-backward"></span>

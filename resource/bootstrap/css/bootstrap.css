@@ -3423,6 +3423,7 @@ tbody.collapse.in {
 }
 .dropup,
 .dropdown {
+  display: inline-block;
   position: relative;
 }
 .dropdown-toggle:focus {

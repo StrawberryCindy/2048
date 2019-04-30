@@ -5,7 +5,7 @@ window.onload = function () {
 	/*set the ID of the clock*/
 	clock = "";
 
-	localStorage.setItem("highestGrade",0);
+	if (!localStorage.getItem("highestGrade")) localStorage.setItem("highestGrade",0);
 
 	currentGrade = 0;
 	
@@ -63,8 +63,8 @@ window.onload = function () {
 	function interrupt_list () {
 		clearInterval(clock);
 		document.getElementById('p1').innerHTML = 'The highest grade: ' + localStorage.getItem("highestGrade")
-												 + "\nRecord: " + currentGrade 
-												 + "\nTime: " + document.getElementById("time");
+												 + "<br/>Record: " + currentGrade 
+												 + "<br/>Time: " + document.getElementById("time").value;
 	}
 
 	function retract () {
