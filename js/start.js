@@ -36,16 +36,17 @@ function operating(){
 		ifGameOver();
 	});
 	main.addEventListener("touchstart", function(event) {
-		console.log(event.targetTouches[0].clientX, event.targetTouches[0].clientY);
-		iniPosition.X = event.targetTouches[0].clientX;
-		iniPosition.Y = event.targetTouches[0].clientY;
+		console.log(event)
+		console.log(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+		iniPosition.X = event.changedTouches[0].clientX;
+		iniPosition.Y = event.changedTouches[0].clientY;
 		recordHistory(board);
 	});
 	main.addEventListener("touchend", function(event) {
 		console.log(event)
-		console.log(event.targetTouches[0].clientX, event.targetTouches[0].clientY);
-		endPosition.X = event.targetTouches[0].clientX;
-		endPosition.Y = event.targetTouches[0].clientY;
+		console.log(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+		endPosition.X = event.changedTouches[0].clientX;
+		endPosition.Y = event.changedTouches[0].clientY;
 		if (canSlideRight(board) || canSlideLeft(board) || canSlideUp(board) || canSlideDown(board)) {
 			console.log(board);
 			isSliding();
