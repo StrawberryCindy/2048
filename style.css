@@ -41,8 +41,13 @@ span{
 
 .row{
 	border-width: 0px;
+	height: 14vw;
 }
-
+.square{
+	height: 14vw;
+	padding-top:2.5vw;
+	font-size: 6vw;
+}
 /*different numbers into different appearance*/
 .num2{
 	background-color: #F5FFE8;
@@ -91,7 +96,7 @@ span{
 	font-size:20px;
 	position: absolute;
 	z-index: 999;
-	margin-top:260px;
+	margin-top: 24vw;
 	margin-left: 18%; 
 	width: 20%;
 	line-height: 70px;
@@ -133,7 +138,6 @@ span{
 	font-size: 50px;
 	text-align: center;
 	background-color: #FFFFF0;
-	line-height: 145px;
 	cursor: pointer;
 } 
 #myModal{

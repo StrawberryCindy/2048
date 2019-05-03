@@ -35,14 +35,33 @@ function operating(){
 		}
 		ifGameOver();
 	});
+	main.addEventListener("touchstart", function(event) {
+		console.log(event.targetTouches[0].clientX, event.targetTouches[0].clientY);
+		iniPosition.X = event.targetTouches[0].clientX;
+		iniPosition.Y = event.targetTouches[0].clientY;
+		recordHistory(board);
+	});
+	main.addEventListener("touchend", function(event) {
+		console.log(event)
+		console.log(event.targetTouches[0].clientX, event.targetTouches[0].clientY);
+		endPosition.X = event.targetTouches[0].clientX;
+		endPosition.Y = event.targetTouches[0].clientY;
+		if (canSlideRight(board) || canSlideLeft(board) || canSlideUp(board) || canSlideDown(board)) {
+			console.log(board);
+			isSliding();
+		}
+		ifGameOver();
+	});
 }
 
 function ini () {
 	if (ifStart) {
 		for (var i = 0; i < 4; i++) {
     	    board[i] = new Array();
+    	    boardCopy[i] = new Array();
     	    for (var j = 0 ; j <4 ; j++) {
     	    	board[i][j] = 0;
+    	    	boardCopy[i][j] = 0;
     	     }
     	}
     	currentGrade = 0;
@@ -328,51 +347,51 @@ function saveHighestGrade () {
 function showSquares (square,state) {
 	switch (state) {
 		case 0:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square");
 			square.innerHTML = '&nbsp';
 			break;
 		case 1:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num2");
 			square.innerHTML = '2';
 			break;
 		case 2:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num4");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num4");
 			square.innerHTML = '4';
 			break;
 		case 3:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num8");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num8");
 			square.innerHTML = '8';
 			break;
 		case 4:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num16");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num16");
 			square.innerHTML = '16';
 			break;
 		case 5:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num32");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num32");
 			square.innerHTML = '32';
 			break;
 		case 6:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num64");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num64");
 			square.innerHTML = '64';
 			break;
 		case 7:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num128");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num128");
 			square.innerHTML = '128';
 			break;
 		case 8:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num256");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num256");
 			square.innerHTML = '256';
 			break;
 		case 9:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num512");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num512");
 			square.innerHTML = '512';
 			break;
 		case 10:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num1024");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num1024");
 			square.innerHTML = '1024';
 			break;
 		case 11:
-			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 num2048");
+			square.setAttribute("class","col-xs-3 col-sm-3 col-md-3 col-lg-3 square num2048");
 			square.innerHTML = '2048';
 			break;
 	}
